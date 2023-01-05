@@ -30,6 +30,14 @@
         </template>
       </ul>
     </div>
+    <div>
+      <Suspense>
+        <CityList />
+        <template #fallback>
+          <p>Loading...</p>
+        </template>
+      </Suspense>
+    </div>
   </main>
 </template>
 
@@ -37,6 +45,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import CityList from "../components/CityList.vue";
 
 const router = useRouter();
 
