@@ -12,6 +12,7 @@ import { ref } from "vue";
 import axios from "axios";
 import CityCard from "./CityCard.vue";
 import { useRouter } from "vue-router";
+import { config } from "../config";
 
 const savedCities = ref([]);
 
@@ -24,12 +25,16 @@ const getCities = async () => {
   savedCities.value.forEach((city) => {
     requests.push(
       axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${city.coords.lat}&lon=${city.coords.lg}&appid=4d332d9d3f9f7e47c58aaf8448b3d1fe&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${city.coords.lat}&lon=${city.coords.lg}&appid=${config.WEATHER_API_KEY}&units=metric`
       )
     );
   });
 
   const weathers = await Promise.all(requests);
+
+  // intent to show the skeleton effect
+  await new Promise((res) => setTimeout(res, 500));
+
   weathers.forEach((weather, index) => {
     savedCities.value[index].weather = weather.data;
   });

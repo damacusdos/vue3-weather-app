@@ -135,6 +135,9 @@ const getWeatherData = async () => {
       hour.currentTime = utc + 1000 * weatherData.data.timezone_offset;
     });
 
+    // intent to show the skeleton effect
+    await new Promise((res) => setTimeout(res, 500));
+
     return weatherData.data;
   } catch (error) {
     console.log(error);
